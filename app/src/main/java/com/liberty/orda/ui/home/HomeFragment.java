@@ -17,10 +17,11 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.liberty.orda.MainActivity;
 import com.liberty.orda.MeshNetwork;
 import com.liberty.orda.R;
 
-public class HomeFragment extends Fragment implements OnMapReadyCallback {
+public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
 
@@ -36,22 +37,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 textView.setText(s);
             }
         });
-        
-        SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        supportMapFragment.getMapAsync(this);
-
+        MainActivity mA = (MainActivity) getActivity();
+        mA.showMap();
         return root;
-    }
-
-    private GoogleMap mMap;
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        LatLng latlng = new LatLng(43.237376,76.857344 );
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 12f));
-
-        MeshNetwork mn = new MeshNetwork((mMap));
     }
 }

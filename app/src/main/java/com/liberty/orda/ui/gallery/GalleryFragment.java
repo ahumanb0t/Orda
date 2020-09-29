@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.liberty.orda.MainActivity;
 import com.liberty.orda.R;
 
 public class GalleryFragment extends Fragment {
@@ -30,6 +31,8 @@ public class GalleryFragment extends Fragment {
                 textView.setText(s);
             }
         });
+        MainActivity mA = (MainActivity) getActivity();
+        mA.hideMap();
         return root;
     }
 }
