@@ -5,6 +5,13 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.List;
 
 public class Network {
+    public static final Network Instance = new Network();
+
+    public void init() {
+        MainThread.Instance.onMessage("Some text in chat!");
+        MainThread.Instance.onUnitUpdatePosition();
+    }
+
     public void setUnitPosition() {
 
     }

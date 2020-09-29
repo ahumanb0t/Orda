@@ -4,11 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -21,7 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -51,9 +47,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        supportMapFragment.getMapAsync(this);
-
+        MainThread mt = new MainThread();
+        mt.initMap(this);
     }
 
     public void hideMap() {
@@ -70,17 +65,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                 .show(supportMapFragment)
                 .commit();
-    }
-
-    private GoogleMap mMap;
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        LatLng latlng = new LatLng(43.237376,76.857344 );
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 12f));
-
-        MeshNetwork mn = new MeshNetwork((mMap));
     }
 
     @Override

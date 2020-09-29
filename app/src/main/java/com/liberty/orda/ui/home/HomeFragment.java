@@ -18,7 +18,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.liberty.orda.MainActivity;
-import com.liberty.orda.MeshNetwork;
 import com.liberty.orda.R;
 
 public class HomeFragment extends Fragment {
