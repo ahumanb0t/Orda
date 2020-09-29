@@ -33,15 +33,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         LatLng latlng = new LatLng(43.237376,76.857344 );
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 12f));
-    }
 
-    /*
-    protected void initMap(Bundle savedInstanceState) {
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        MeshNetwork mn = new MeshNetwork((mMap));
     }
-    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
