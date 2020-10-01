@@ -17,6 +17,15 @@
         android:textSize="14dp"
         android:layout_alignParentRight="true"
         android:text="Placeholder message"
+        android:layout_marginRight="27dp"
         />
+
+    <View
+        android:id="@+id/avatar"
+        android:layout_alignParentRight="true"
+        android:scaleType="centerInside"
+        android:background="@drawable/circle"
+        android:layout_width="27dp"
+        android:layout_height="27dp" />
 
 </RelativeLayout>
