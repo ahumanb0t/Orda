@@ -1,5 +1,15 @@
 package com.liberty.orda;
 
+import android.app.Activity;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -10,6 +20,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainThread implements OnMapReadyCallback {
@@ -40,10 +52,136 @@ public class MainThread implements OnMapReadyCallback {
 
         this.setUpClusterer(parentActivity);
         this.addItems();
+
+        ListView list = (ListView) parentActivity.findViewById(R.id.messages_view);
+        //arrayList = new ArrayList<String>();
+        //adapter = new ArrayAdapter<String>(parentActivity.getApplicationContext(), android.R.layout.simple_expandable_list_item_1, arrayList);
+        adapter = new MessageAdapter(parentActivity.getApplicationContext());
+        list.setAdapter(adapter);
+
+
+        String msg = "some text message!";
+
+        adapter.add(new Message("some text",
+                new MemberData("bar", "#000"), true));
+        //arrayList.add(msg);
+        //adapter.notifyDataSetChanged();
+
     }
 
-    public void onMessage(String msg) {
+    private ArrayList<String> arrayList;
+    //private ArrayAdapter<String> adapter;
+    private MessageAdapter adapter;
 
+    class MemberData {
+        private String name;
+        private String color;
+
+        public MemberData(String name, String color) {
+            this.name = name;
+            this.color = color;
+        }
+
+        // Add an empty constructor so we can later parse JSON into MemberData using Jackson
+        public MemberData() {
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getColor() {
+            return color;
+        }
+    }
+
+    public class Message {
+        private String text; // message body
+        private MemberData memberData; // data of the user that sent this message
+        private boolean belongsToCurrentUser; // is this message sent by us?
+
+        public Message(String text, MemberData memberData, boolean belongsToCurrentUser) {
+            this.text = text;
+            this.memberData = memberData;
+            this.belongsToCurrentUser = belongsToCurrentUser;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public MemberData getMemberData() {
+            return memberData;
+        }
+
+        public boolean isBelongsToCurrentUser() {
+            return belongsToCurrentUser;
+        }
+    }
+
+    public class MessageAdapter extends BaseAdapter {
+        List<Message> messages = new ArrayList<Message>();
+        Context context;
+
+        public MessageAdapter(Context context) {
+            this.context = context;
+        }
+
+        public void add(Message message) {
+            this.messages.add(message);
+            notifyDataSetChanged(); // to render the list we need to notify
+        }
+
+        @Override
+        public int getCount() {
+            return messages.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return messages.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        // This is the backbone of the class, it handles the creation of single ListView row (chat bubble)
+        @Override
+        public View getView(int i, View convertView, ViewGroup viewGroup) {
+            MessageViewHolder holder = new MessageViewHolder();
+            LayoutInflater messageInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+            Message message = messages.get(i);
+
+            convertView = messageInflater.inflate(R.layout.message, null);
+            holder.messageBody = (TextView) convertView.findViewById(R.id.message_body);
+            convertView.setTag(holder);
+            holder.messageBody.setText(message.getText());
+
+            return convertView;
+        }
+
+    }
+
+    class MessageViewHolder {
+        public View avatar;
+        public TextView name;
+        public TextView messageBody;
+    }
+
+
+
+    public void onMessage(String msg) {
+        /*
+        ListView list = (ListView) parentActivity.findViewById(R.id.messages_view);
+        arrayList = new ArrayList<String>();
+        adapter = new ArrayAdapter<String>(parentActivity.getApplicationContext(), android.R.layout.activity_list_item, arrayList);
+        list.setAdapter(adapter);
+
+        arrayList.add(msg);
+        adapter.notifyDataSetChanged();
+        */
     }
 
     public void onUnitUpdatePosition() {

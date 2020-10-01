@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         MainThread.Instance.initMap(this);
+        Network.Instance.init();
     }
 
     public void hideMap() {

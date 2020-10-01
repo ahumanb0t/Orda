@@ -49,20 +49,16 @@
         <fragment
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="411dp"
-            android:layout_height="675dp"
-            app:layout_anchorGravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="0dp" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <ListView
             android:id="@+id/messages_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="731dp"
-            android:layout_weight="2"
+            android:layout_width="409dp"
+            android:layout_height="237dp"
             android:divider="#fff"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"></ListView>
 
         <LinearLayout
             android:id="@+id/linearLayout"
