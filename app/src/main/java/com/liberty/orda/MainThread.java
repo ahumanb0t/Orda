@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -53,25 +54,41 @@ public class MainThread implements OnMapReadyCallback {
         this.setUpClusterer(parentActivity);
         this.addItems();
 
-        ListView list = (ListView) parentActivity.findViewById(R.id.messages_view);
+        messagesView = (ListView) parentActivity.findViewById(R.id.messages_view);
         //arrayList = new ArrayList<String>();
         //adapter = new ArrayAdapter<String>(parentActivity.getApplicationContext(), android.R.layout.simple_expandable_list_item_1, arrayList);
-        adapter = new MessageAdapter(parentActivity.getApplicationContext());
-        list.setAdapter(adapter);
+        messagesAdapter = new MessageAdapter(parentActivity.getApplicationContext());
+        messagesView.setAdapter(messagesAdapter);
+
+        parentActivity.findViewById(R.id.sendMessageButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText edit = (EditText)parentActivity.findViewById(R.id.sendMessageEdit);
+                String text = edit.getText().toString();
+                edit.setText("");
+
+                if(text.length() == 0) return;
+
+                Message msg = new Message(text, new MemberData("bar", "#000"), true);
+                messagesAdapter.add(msg);
+
+                messagesView.setSelection(messagesView.getCount() - 1);
+            }
+        });
 
 
         String msg = "some text message!";
 
-        adapter.add(new Message("some text",
+
+        messagesAdapter.add(new Message("some text",
                 new MemberData("bar", "#000"), true));
         //arrayList.add(msg);
         //adapter.notifyDataSetChanged();
 
     }
 
-    private ArrayList<String> arrayList;
-    //private ArrayAdapter<String> adapter;
-    private MessageAdapter adapter;
+    private ListView messagesView;
+    private MessageAdapter messagesAdapter;
 
     class MemberData {
         private String name;
@@ -213,8 +230,6 @@ public class MainThread implements OnMapReadyCallback {
             return snippet;
         }
     }
-
-
 
     public ClusterManager<MyItem> clusterManager;
 
