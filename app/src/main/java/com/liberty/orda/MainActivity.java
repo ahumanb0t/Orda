@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        MainThread mt = new MainThread();
-        mt.initMap(this);
+
+        MainThread.Instance.initMap(this);
     }
 
     public void hideMap() {
@@ -65,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
                 .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                 .show(supportMapFragment)
                 .commit();
+    }
+
+    public void onUserInteraction() {
+        MainThread.Instance.onUserInteraction();
     }
 
     @Override
