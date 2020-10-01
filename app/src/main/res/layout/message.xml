@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="5dp"
+    android:paddingVertical="1dp"
 
     android:clipToPadding="false">
 
@@ -12,9 +12,9 @@
         android:id="@+id/message_body"
         android:background="@drawable/message"
         android:textColor="#fff"
-        android:padding="5dp"
+        android:padding="4dp"
         android:elevation="0dp"
-        android:textSize="16dp"
+        android:textSize="14dp"
         android:layout_alignParentRight="true"
         android:text="Placeholder message"
         />
